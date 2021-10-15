@@ -31,25 +31,54 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
         <!--别名的处理-->
         <property name="typeAliasesPackage" value="com.mybatis.xiaoran.bean"></property>
+        <!--注入全局mp策略配置-->
         <property name="globalConfig" ref="globalConfig"></property>
+        <!--插件注册
+        <property name="plugins">
+            <array>
+                <bean class="com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor">
+                    <property name="interceptors">
+                        <list>
+                            <!-分页插件的注册->
+                            <bean class="com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor"></bean>
+                            <!-分析插件的注册->
+                            <bean class="com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor"></bean>
+                            <!-性能分析插件->
+                            <bean class="com.baomidou.mybatisplus.extension.plugins.inner.IllegalSQLInnerInterceptor"></bean>
+                            <!-测试我们的乐观锁->
+                            <bean class="com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor"></bean>
+                        </list>
+                    </property>
+                </bean>
+            </array>
+        </property>-->
     </bean>
 
     <!--配置mybatis扫描mapper的接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-            <property name="basePackage" value="com.mybatis.xiaoran.mapper"></property>
+            <property name="basePackage" value="com.xiaoran.mybatis.mapper"></property>
     </bean>
 
 
     <!--定义mybatisplus的全局策略的配置-->
     <bean id="globalConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig">
-        <property name="dbConfig" >
-            <bean id="dbConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig.DbConfig">
-                <!--全局主键配置
-                <property name="idType" value="AUTO"></property>-->
-                <!--全局的表前缀配置
-                <property name="tablePrefix" value="tbl_"></property>-->
-            </bean>
-        </property>
-    </bean>
+        <property name="dbConfig" ref="dbConfig"></property>
+        <!--定义自定义的全局注入器
+        <property name="sqlInjector" ref="Myinjector"></property>-->
+        <property name="metaObjectHandler" ref="mymetaoobjectHandler"></property>
 
+    </bean>
+    <!-- 定义dbConfig -->
+    <bean id="dbConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig$DbConfig">
+        <property name="idType" value="AUTO"></property>
+        <!--逻辑删除的配置-->
+        <!--逻辑已删除值-->
+        <property name="logicDeleteField" value="1"></property>
+        <!--逻辑未删除值-->
+        <property name="logicNotDeleteValue" value="0"></property>
+    </bean>
+    <!--自定义sql注入-->
+    <bean id="Myinjector" class="com.xiaoran.mybatis.injector.Myinjector"></bean>
+    <!--自定义的自动填充条件满足-->
+    <bean id="mymetaoobjectHandler" class="com.xiaoran.mybatis.metaobjectHanndler.MymetaoobjectHandler"></bean>
 </beans>

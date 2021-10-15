@@ -19,16 +19,5 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
-    @Autowired
-    private IEmployeeService employeeService;
-    public void lonin(){
-        Employee employee=new Employee();
-        employee.setName("小冉");
-        employee.setEmail("@qq123");
-        employee.setGender("1");
-        employee.setAge(22);
-       boolean page= employeeService.save(employee);
-    }
-
 }
 

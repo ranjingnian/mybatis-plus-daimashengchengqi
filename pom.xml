@@ -74,6 +74,10 @@
             <artifactId>swagger-annotations</artifactId>
             <version>1.6.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
         <dependency>
@@ -110,6 +114,7 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+
 
     </dependencies>
 
