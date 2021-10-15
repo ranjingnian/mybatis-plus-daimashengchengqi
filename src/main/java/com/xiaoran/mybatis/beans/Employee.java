@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,7 +20,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @TableName("tbl_employee")
 @ApiModel(value = "Employee对象", description = "")
-public class Employee implements Serializable {
+public class Employee  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,6 +35,16 @@ public class Employee implements Serializable {
 
     private Integer age;
 
+    @Version
+    private int version;
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public Integer getId() {
         return id;
